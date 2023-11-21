@@ -16,12 +16,13 @@ import {
 } from "../../dataAccess/mongoose";
 import { generateAuthToken } from "../helpers/token";
 import UserLoginInterface from "../interfaces/UserLoginInterface";
+import { getAllUsersFromJSON } from "../../dataAccess/postgreSQL";
 
 type UserResult = Promise<UserInterface | null>;
 
 export const getUsers = async () => {
   try {
-    const users = await getAllUsersFromMongoDB();
+    const users = await getAllUsersFromJSON();
     return users;
   } catch (error) {
     console.log(chalk.redBright(error));

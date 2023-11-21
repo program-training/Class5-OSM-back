@@ -19,7 +19,11 @@ import {
   getUserById,
   insertUsers,
 } from "./dataAccess/mongoose";
-import { connectionToPostgres } from "./dataAccess/postgreSQL";
+import {
+  connectionToPostgres,
+  getAllUsersFromJSON,
+  insertUsersIntoPG,
+} from "./dataAccess/postgreSQL";
 
 app.use(morgan);
 app.use(cors);
@@ -33,14 +37,15 @@ app.listen(PORT, () => {
   // console.log(users1);
   console.log(chalk.blueBright(`Server listening on port: ${PORT}`));
 
-  connectToDatabase()
-    .then((message) => console.log(message))
-    .catch((error) => console.log(error.message));
-
-  // connectionToPostgres()
+  // connectToDatabase()
   //   .then((message) => console.log(message))
   //   .catch((error) => console.log(error.message));
 
+  connectionToPostgres()
+    .then((message) => console.log(message))
+    .catch((error) => console.log(error.message));
+  getAllUsersFromJSON().then((d) => console.log(d));
+  insertUsersIntoPG().then((d) => console.log(d));
   // generateInitialUsers()
   //   .then(() => console.log(chalk.magentaBright("Initial Users Created!")))
   //   .catch((error) => console.log(error));

@@ -1,0 +1,42 @@
+[
+    {
+        "email": "d33bcc@gmail.com",
+        "password": "72284c9a0ba0",
+        "isAdmin": true
+    },
+    {
+        "email": "9542b1@gmail.com",
+        "password": "8cedf247f5f9",
+        "isAdmin": false
+    },
+    {
+        "email": "dfe545@gmail.com",
+        "password": "05ce10f160d2",
+        "isAdmin": false
+    },
+    {
+        "email": "8830a4@gmail.com",
+        "password": "426adaf3bd5f",
+        "isAdmin": false
+    },
+    {
+        "email": "5668c8@gmail.com",
+        "password": "9a1814196885",
+        "isAdmin": false
+    },
+    {
+        "email": "3d7495@gmail.com",
+        "password": "fe0168894aba",
+        "isAdmin": true
+    },
+    {
+        "email": "585676@gmail.com",
+        "password": "a52d27cb297d",
+        "isAdmin": true
+    },
+    {
+        "email": "516ba6@gmail.com",
+        "password": "7a076f7615a6",
+        "isAdmin": true
+    }
+]
