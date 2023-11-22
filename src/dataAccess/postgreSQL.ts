@@ -1,5 +1,6 @@
 import { Pool } from "pg";
 import { readJsonFileUsers } from "../initialData/initialDataService";
+import UserInterface from "../users/interfaces/UserInterface";
 export const client = new Pool({
   connectionString:
     "postgres://ivbpgsqh:LtO3C670pkVMwH4GAYgn6ad_q-uBNZOq@cornelius.db.elephantsql.com/ivbpgsqh",
@@ -14,7 +15,7 @@ export const connectionToPostgres = async () => {
 };
 export const getAllUsersFromJSON = async () => {
   try {
-    const users = await readJsonFileUsers();
+    const users: UserInterface[] = await readJsonFileUsers();
     return users;
   } catch (error) {
     return Promise.reject(error);

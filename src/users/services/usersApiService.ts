@@ -1,14 +1,9 @@
 import UserInterface from "../interfaces/UserInterface";
 import { v1 as uuid1 } from "uuid";
 import { comparePassword, generateUserPassword } from "../helpers/bcrypt";
-import {
-  getCollectionFromJsonFile,
-  modifyCollection,
-} from "../../dataAccess/jsonfileDAL";
+
 import chalk from "chalk";
 import userValidation from "../models/joi/userRegistrationValidation";
-import { getDataFromDummy } from "../../dataAccess/dummyjson";
-import { addDataToJsonPlaceHolder } from "../../dataAccess/jsonPlaceHolder";
 import {
   // getAllUsersFromMongoDB,
   getUserById,
@@ -38,17 +33,6 @@ export const getUser = async (userId: string) => {
     console.log(1.2);
 
     return getUserFromMDB;
-
-    // const users = await getCollectionFromJsonFile("users");
-    // if (users instanceof Error)
-    //   throw new Error("Oops... Could not get the users from the Database");
-
-    // const userFromDB = users.find(
-    //   (user: Record<string, unknown>) => user._id === userId
-    // );
-
-    // if (!userFromDB) throw new Error("No user with this id in the database!");
-    // return userFromDB;
   } catch (error) {
     console.log(chalk.redBright(error));
     return Promise.reject(error);
@@ -84,7 +68,7 @@ export const editUser = async (
   userForUpdate: UserInterface
 ): UserResult => {
   try {
-    const users = await getCollectionFromJsonFile("users");
+    const users = await getAllUsersFromJSON();
     if (users instanceof Error)
       throw new Error("Oops... Could not get the users from the Database");
 
@@ -107,7 +91,7 @@ export const editUser = async (
 
 export const deleteUser = async (userId: string) => {
   try {
-    const users = await getCollectionFromJsonFile("users");
+    const users = await getAllUsersFromJSON();
     if (users instanceof Error)
       throw new Error("Oops... Could not get the users from the Database");
 
@@ -128,7 +112,7 @@ export const deleteUser = async (userId: string) => {
 
 export const login = async (userFromClient: UserLoginInterface) => {
   try {
-    const users = await getAllUsersFromMongoDB();
+    const users = await getAllUsersFromJSON();
     if (!users)
       throw new Error("Oops... Could not get the users from the Database");
 
@@ -146,45 +130,6 @@ export const login = async (userFromClient: UserLoginInterface) => {
     return { message: "Login successful", resInfoObj };
   } catch (error) {
     console.log(chalk.redBright(error));
-    return Promise.reject(error);
-  }
-};
-
-export const addProductToUser = async (
-  userId: string,
-  productFromClient: string
-) => {
-  try {
-    const user = await getUser(userId);
-    // if (!user) throw new Error("Could not find this user!");
-
-    // const data = await getDataFromDummy();
-    // if (!data?.data) throw new Error("Could not get the data!");
-    // const { data: dataFromDummy } = data;
-
-    // const productFromDB = dataFromDummy.products.find(
-    //   (product: Record<string, unknown>) =>
-    //     typeof product.title === "string" &&
-    //     product.title
-    //       .toLowerCase()
-    //       .trim()
-    //       .includes(productFromClient.toLowerCase().trim())
-    // );
-
-    // if (!productFromDB) throw new Error("Could not found this product");
-    // user.product = productFromDB;
-
-    // const userFromJsonPlaceHolder = await addDataToJsonPlaceHolder(
-    //   user,
-    //   "users"
-    // );
-    // if (!userFromJsonPlaceHolder)
-    //   throw new Error("Could not add this user to jsonplaceholder database");
-
-    // return userFromJsonPlaceHolder;
-  } catch (error) {
-    if (error && typeof error === "object" && "message" in error)
-      console.log(chalk.redBright(error.message));
     return Promise.reject(error);
   }
 };
