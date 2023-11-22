@@ -10,9 +10,9 @@ import userValidation from "../models/joi/userRegistrationValidation";
 import { getDataFromDummy } from "../../dataAccess/dummyjson";
 import { addDataToJsonPlaceHolder } from "../../dataAccess/jsonPlaceHolder";
 import {
-  getAllUsersFromMongoDB,
+  // getAllUsersFromMongoDB,
   getUserById,
-  insertUsers,
+  // insertUsers,
 } from "../../dataAccess/mongoose";
 import { generateAuthToken } from "../helpers/token";
 import UserLoginInterface from "../interfaces/UserLoginInterface";

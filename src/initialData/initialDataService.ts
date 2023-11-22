@@ -2,12 +2,21 @@ import UserInterface from "../users/interfaces/UserInterface";
 import { getUsers, register } from "../users/services/usersApiService";
 import chalk from "chalk";
 import jsonfile from "jsonfile";
-const filePath = "src/initialData/users.json";
+const filePathUsers = "src/initialData/users.json";
+const filePathOrders = "src/initialData/orders.json";
 
 // Use async/await to read the JSON file
-export const readJsonFile = async () => {
+export const readJsonFileUsers = async () => {
   try {
-    const data = await jsonfile.readFile(filePath);
+    const data = await jsonfile.readFile(filePathUsers);
+    return Promise.resolve(data);
+  } catch (error) {
+    Promise.reject(error);
+  }
+};
+export const readJsonFileOrders = async () => {
+  try {
+    const data = await jsonfile.readFile(filePathOrders);
     return Promise.resolve(data);
   } catch (error) {
     Promise.reject(error);

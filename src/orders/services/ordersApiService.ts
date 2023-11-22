@@ -10,16 +10,18 @@ import userValidation from "../models/joi/userValidation";
 import { getDataFromDummy } from "../../dataAccess/dummyjson";
 import { addDataToJsonPlaceHolder } from "../../dataAccess/jsonPlaceHolder";
 import {
-  getAllProductsFromMongoDB,
+  getAllOrdersFromJSON,
+  getAllOrdersFromMongoDB,
+  // getAllProductsFromMongoDB,
   getProductById,
 } from "../../dataAccess/mongoose";
 
 type UserResult = Promise<UserInterface | null>;
 
-export const getProducts = async () => {
+export const getOrders = async () => {
   try {
-    const products = await getAllProductsFromMongoDB();
-    return products;
+    const orders = await getAllOrdersFromJSON();
+    return orders;
   } catch (error) {
     console.log(chalk.redBright(error));
     return Promise.reject(error);

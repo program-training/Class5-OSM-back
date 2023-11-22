@@ -1,13 +1,17 @@
 import UserInterface from "../interfaces/OrdersInterface";
-import { getProducts, getProduct } from "../services/ordersApiService";
+import {
+  // getProducts,
+  getProduct,
+  getOrders,
+} from "../services/ordersApiService";
 import { handleError } from "../../utils/handleErrors";
 import userValidation from "../models/joi/userValidation";
 import { Request, Response } from "express";
 
-export const handleGetProducts = async (req: Request, res: Response) => {
+export const handleGetOrders = async (req: Request, res: Response) => {
   try {
-    const products = await getProducts();
-    return res.send(products);
+    const orders = await getOrders();
+    return res.send(orders);
   } catch (error) {
     handleError(res, error);
   }

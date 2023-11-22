@@ -1,11 +1,14 @@
 import express from "express";
 import {
-  handleGetProduct,
-  handleGetProducts,
+  handleGetOrders,
+  // handleGetProduct,
+  // handleGetProducts,
 } from "../controllers/ordersControllers";
 const router = express.Router();
 
-// router.get("/", handleGetOrders);
-router.get("/:id", handleGetProduct);
+router.get("/orders", handleGetOrders);
 
 export default router;
+
+// router.get("/orders", handleGetProduct);
+// router.get("/", handleGetOrders);

@@ -14,10 +14,10 @@ import cors from "./cors/cors";
 
 // app.use(cors(corsOptions));
 import {
-  connectToDatabase,
-  getAllUsersFromMongoDB,
+  connectToMongoose,
+  getAllOrdersFromJSON,
   getUserById,
-  insertUsers,
+  insertOrdersIntoMongoose,
 } from "./dataAccess/mongoose";
 import {
   connectionToPostgres,
@@ -32,21 +32,26 @@ app.use(router);
 
 const PORT = 3333;
 app.listen(PORT, () => {
-  // await getUserById("64fefdf422dbe033fdbec2dc");
-  // const users1 = await getAllUsersFromMongoDB();
-  // console.log(users1);
   console.log(chalk.blueBright(`Server listening on port: ${PORT}`));
 
-  // connectToDatabase()
-  //   .then((message) => console.log(message))
-  //   .catch((error) => console.log(error.message));
+  connectToMongoose()
+    .then((message) => console.log(message))
+    .catch((error) => console.log(error.message));
+  const orderData = getAllOrdersFromJSON().then((d) => console.log(d));
 
   connectionToPostgres()
     .then((message) => console.log(message))
     .catch((error) => console.log(error.message));
   getAllUsersFromJSON().then((d) => console.log(d));
   insertUsersIntoPG().then((d) => console.log(d));
-  // generateInitialUsers()
-  //   .then(() => console.log(chalk.magentaBright("Initial Users Created!")))
-  //   .catch((error) => console.log(error));
 });
+
+// insertOrdersIntoMongoose(orderData).then((d) => console.log(d));
+
+// await getUserById("64fefdf422dbe033fdbec2dc");
+// const users1 = await getAllUsersFromMongoDB();
+// console.log(users1);
+
+// generateInitialUsers()
+//   .then(() => console.log(chalk.magentaBright("Initial Users Created!")))
+//   .catch((error) => console.log(error));

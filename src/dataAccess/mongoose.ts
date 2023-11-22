@@ -4,9 +4,12 @@ import UserInterface from "../users/interfaces/UserInterface";
 import { Product } from "../products/models/mongoose/ProductSchema";
 import { Category } from "../categories/models/mongoose/CategorySchema";
 import CategoryInterface from "../categories/interfaces/CategoryInterface";
+import { readJsonFileOrders } from "../initialData/initialDataService";
+import OrderInterface from "../orders/interfaces/OrdersInterface";
+import { Order } from "../users/models/mongoose/OrderSchema";
 var ObjectId1 = require("mongoose").Types.ObjectId;
 
-export const connectToDatabase = async () => {
+export const connectToMongoose = async () => {
   try {
     await mongoose.connect(
       "mongodb+srv://8a:123456789Aa@cluster0.pugoiz1.mongodb.net/project-team1"
@@ -17,26 +20,26 @@ export const connectToDatabase = async () => {
   }
 };
 
-export const getAllUsersFromMongoDB = async () => {
+export const getAllOrdersFromJSON = async () => {
   try {
-    const users = await User.find();
-    return users;
+    const orders = await readJsonFileOrders();
+    return orders;
   } catch (error) {
     return Promise.reject(error);
   }
 };
 
-export const insertUsers = async (user: UserInterface) => {
+export const insertOrdersIntoMongoose = async (orders: OrderInterface) => {
   try {
-    const newUser = new User(user);
-    const userFromDB = await newUser.save();
-    return userFromDB;
+    const newOrder = new Order(orders);
+    const ordersFromDB = await newOrder.save();
+    return ordersFromDB;
   } catch (error) {
     if (error instanceof Error) return Promise.reject(error);
   }
 };
 
-export const getAllProductsFromMongoDB = async () => {
+export const getAllOrdersFromMongoDB = async () => {
   try {
     const products = await Product.find();
     return products;

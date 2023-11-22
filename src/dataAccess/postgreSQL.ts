@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { readJsonFile } from "../initialData/initialDataService";
+import { readJsonFileUsers } from "../initialData/initialDataService";
 export const client = new Pool({
   connectionString:
     "postgres://ivbpgsqh:LtO3C670pkVMwH4GAYgn6ad_q-uBNZOq@cornelius.db.elephantsql.com/ivbpgsqh",
@@ -14,7 +14,7 @@ export const connectionToPostgres = async () => {
 };
 export const getAllUsersFromJSON = async () => {
   try {
-    const users = await readJsonFile();
+    const users = await readJsonFileUsers();
     return users;
   } catch (error) {
     return Promise.reject(error);
