@@ -28,10 +28,20 @@ export const getAllOrdersFromJSON = async () => {
 
 export const insertOrdersIntoMongoose = async () => {
   try {
-    const orders = getAllOrdersFromJSON();
-    const newOrder = new Order(orders);
-    const ordersFromDB = await newOrder.save();
-    return ordersFromDB;
+    const orders = await getAllOrdersFromJSON();
+    const newOrders = [];
+    const newOrder = new Order();
+    for (const data of orders) {
+      const existingOrder = await Order.findOne({ _id: data._id });
+
+      if (!existingOrder) {
+        newOrders.push(data);
+        console.log("Order inserted:");
+      } else {
+        console.log("Order already exists:");
+      }
+    }
+    Order.insertMany(newOrders);
   } catch (error) {
     if (error instanceof Error) return Promise.reject(error);
   }
