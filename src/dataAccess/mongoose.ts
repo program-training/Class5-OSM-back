@@ -5,12 +5,12 @@ import { readJsonFileOrders } from "../initialData/initialDataService";
 import OrderInterface from "../orders/interfaces/OrdersInterface";
 import { Order } from "../orders/models/mongoose/OrderSchema";
 var ObjectId1 = require("mongoose").Types.ObjectId;
-
+import "dotenv/config";
 export const connectToMongoose = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://8a:123456789Aa@cluster0.pugoiz1.mongodb.net/project-team1"
-    );
+    if (process.env.MONGODB_URI)
+      await mongoose.connect(process.env.MONGODB_URI);
+
     return "Connected to MongoDB";
   } catch (error) {
     return Promise.reject(error);
@@ -39,6 +39,8 @@ export const insertOrdersIntoMongoose = async (orders: OrderInterface) => {
 export const getAllOrdersFromMongoDB = async () => {
   try {
     const orders = await Order.find();
+    console.log(orders);
+
     return orders;
   } catch (error) {
     return Promise.reject(error);

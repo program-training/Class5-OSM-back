@@ -7,6 +7,8 @@ import { Request, Response } from "express";
 export const handleGetOrders = async (req: Request, res: Response) => {
   try {
     const orders = await getOrders();
+    console.log(process.env.MONGODB_URI);
+
     return res.send(orders);
   } catch (error) {
     handleError(res, error);

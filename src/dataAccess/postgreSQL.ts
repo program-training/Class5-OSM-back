@@ -1,14 +1,15 @@
 import { Pool } from "pg";
+import "dotenv/config";
 import { readJsonFileUsers } from "../initialData/initialDataService";
 import UserInterface from "../users/interfaces/UserInterface";
 export const client = new Pool({
-  connectionString:
-    "postgres://ivbpgsqh:LtO3C670pkVMwH4GAYgn6ad_q-uBNZOq@cornelius.db.elephantsql.com/ivbpgsqh",
+  connectionString: process.env.POSTGRESQL_URI,
 });
 export const connectionToPostgres = async () => {
   try {
     await client.connect();
-    return "connected to sql";
+    await client.connect();
+    return "Connected to PotsgreSQL";
   } catch (error) {
     return Promise.reject(error);
   }

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import router from "./router/router";
 const app = express();
@@ -30,14 +31,14 @@ app.use(cors);
 app.use(express.json());
 app.use(router);
 
-const PORT = 3333;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(chalk.blueBright(`Server listening on port: ${PORT}`));
 
   connectToMongoose()
     .then((message) => console.log(message))
     .catch((error) => console.log(error.message));
-  const orderData = getAllOrdersFromJSON().then((d) => console.log(d));
+  // const orderData = getAllOrdersFromJSON().then((d) => console.log(d));
 
   connectionToPostgres()
     .then((message) => console.log(message))
