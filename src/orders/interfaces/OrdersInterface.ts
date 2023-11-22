@@ -1,10 +1,10 @@
-import Product from "../../products/interfaces/ProductsInterface";
+import Product from "./ProductInterface";
 
 interface OrderInterface {
   cartItems: Product[];
   orderTime: Date;
   status: string;
-  Price: number;
+  price: number;
   shippingDetails: {
     address: string;
     userId: number;
