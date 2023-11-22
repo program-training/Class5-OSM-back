@@ -3,13 +3,13 @@ import "dotenv/config";
 import { readJsonFileUsers } from "../initialData/initialDataService";
 import UserInterface from "../users/interfaces/UserInterface";
 export const client = new Pool({
-  connectionString: process.env.POSTGRESQL_URI,
+  connectionString: process.env.POSTGRESQL_CONNECTION_STRING,
 });
 export const connectionToPostgres = async () => {
   try {
     await client.connect();
     await client.connect();
-    return "Connected to PotsgreSQL";
+    return "Connected to PostgreSQL";
   } catch (error) {
     return Promise.reject(error);
   }

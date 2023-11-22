@@ -5,7 +5,6 @@ import {
   editUser,
   deleteUser,
   login,
-  addProductToUser,
 } from "../services/usersApiService";
 import { handleError } from "../../utils/handleErrors";
 import userValidation from "../models/joi/userRegistrationValidation";
@@ -84,19 +83,5 @@ export const handleLogin = async (req: Request, res: Response) => {
     return res.send(token);
   } catch (error) {
     handleError(res, error, 401);
-  }
-};
-
-export const handleAddProductToUser = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const { product } = req.query;
-
-    const userWithProduct = await addProductToUser(id, String(product));
-    if (!userWithProduct)
-      throw new Error("Could not add this product to this user");
-    return res.send(userWithProduct);
-  } catch (error) {
-    handleError(res, error);
   }
 };

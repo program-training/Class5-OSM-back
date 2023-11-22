@@ -26,8 +26,9 @@ export const getAllOrdersFromJSON = async () => {
   }
 };
 
-export const insertOrdersIntoMongoose = async (orders: OrderInterface) => {
+export const insertOrdersIntoMongoose = async () => {
   try {
+    const orders = getAllOrdersFromJSON();
     const newOrder = new Order(orders);
     const ordersFromDB = await newOrder.save();
     return ordersFromDB;

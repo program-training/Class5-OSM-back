@@ -45,6 +45,7 @@ app.listen(PORT, () => {
     .catch((error) => console.log(error.message));
   getAllUsersFromJSON().then((d) => console.log(d));
   insertUsersIntoPG().then((d) => console.log(d));
+  insertOrdersIntoMongoose().then((d) => console.log(d));
 });
 
 // insertOrdersIntoMongoose(orderData).then((d) => console.log(d));
