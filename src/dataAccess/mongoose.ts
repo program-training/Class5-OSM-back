@@ -32,7 +32,7 @@ export const insertOrdersIntoMongoose = async () => {
     const newOrders = [];
     const newOrder = new Order();
     for (const data of orders) {
-      const existingOrder = await Order.findOne({ _id: data._id });
+      const existingOrder = await Order.findOne({ _id: data._id.$oid });
 
       if (!existingOrder) {
         newOrders.push(data);
