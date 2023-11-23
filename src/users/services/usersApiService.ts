@@ -49,13 +49,13 @@ export const register = async (user: UserInterface): UserResult => {
     if (userRegistered) throw new Error("This user is allready registered!");
 
     user.password = generateUserPassword(user.password);
-    await insertUsers(user);
+    // await insertUsers(user);
     // users.push({ ...user });
 
-    await modifyCollection(
-      "users",
-      users as unknown as Record<string, unknown>[]
-    );
+    // await modifyCollection(
+    //   "users",
+    //   users as unknown as Record<string, unknown>[]
+    // );
     return user;
   } catch (error) {
     console.log(chalk.redBright(error));
@@ -79,9 +79,9 @@ export const editUser = async (
     const userToUpdate = { ...usersCopy[index], ...userForUpdate };
     usersCopy[index] = userToUpdate;
 
-    const data = await modifyCollection("users", usersCopy);
-    if (!data)
-      throw new Error("Oops... something went wrong Could not Edit this user");
+    // const data = await modifyCollection("users", usersCopy);
+    // if (!data)
+    //   throw new Error("Oops... something went wrong Could not Edit this user");
     return userToUpdate;
   } catch (error) {
     console.log(chalk.redBright(error));
@@ -99,9 +99,9 @@ export const deleteUser = async (userId: string) => {
     if (!user) throw new Error("Could not find user with this ID!");
     const filteredUser = users.filter((user) => user._id !== userId);
 
-    const data = await modifyCollection("users", filteredUser);
-    if (!data)
-      throw new Error("Oops... something went wrong Could not Edit this user");
+    // const data = await modifyCollection("users", filteredUser);
+    // if (!data)
+    //   throw new Error("Oops... something went wrong Could not Edit this user");
 
     return user;
   } catch (error) {
