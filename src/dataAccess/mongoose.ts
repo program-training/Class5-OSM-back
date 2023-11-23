@@ -73,3 +73,13 @@ export const getUserById = async (id: string) => {
     return Promise.reject(error);
   }
 };
+
+export const insertOrderFromAPI = async (order: OrderInterface) => {
+  try {
+    const newOrder = new Order(order);
+    const orderFromDB = await newOrder.save();
+    return orderFromDB;
+  } catch (error) {
+    if (error instanceof Error) return Promise.reject(error);
+  }
+};
