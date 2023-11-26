@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const CartItemSchema = new Schema({
+  id: Number,
   name: String,
   description: String,
   price: Number,
@@ -14,7 +15,7 @@ export const OrderSchema = new Schema({
   price: Number,
   shippingDetails: {
     address: String,
-    userId: Number,
+    userId: String,
     contactNumber: String,
     orderType: String,
   },
