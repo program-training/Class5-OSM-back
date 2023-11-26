@@ -10,7 +10,6 @@ const router = express.Router();
 router.get("/", handleGetOrders);
 router.post("/", handleOrderFromAPI);
 router.get("/:id", handleGetOrder);
-router.put("/:id", handleGetOrder);
-router.post("/:id", handleEditOrder);
+router.put("/:id", handleEditOrder);
 
 export default router;
