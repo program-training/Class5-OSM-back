@@ -14,7 +14,7 @@ export const OrderSchema = new Schema({
   price: Number,
   shippingDetails: {
     address: String,
-    userId: Number,
+    userId: String,
     contactNumber: String,
     orderType: String,
   },

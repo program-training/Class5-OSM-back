@@ -7,7 +7,7 @@ interface OrderInterface {
   price: number;
   shippingDetails: {
     address: string;
-    userId: number;
+    userId: string;
     contactNumber: string;
     orderType: string;
   };
