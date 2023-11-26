@@ -64,20 +64,17 @@ export const editOrder = async (
   orderData: Record<string, unknown>
 ) => {
   try {
-    Order.findByIdAndUpdate(orderId, orderData);
+    const existingOrder = await Order.findById(orderId);
+
+    if (!existingOrder) {
+      throw new Error("Order not found");
+    }
+
+    existingOrder.set(orderData);
+    const updatedOrder = await existingOrder.save();
+
+    return updatedOrder;
   } catch (error) {
-    if (error instanceof Error) return Promise.reject(error);
+    return Promise.reject(error);
   }
-
-  // const orders = await getAllOrdersFromMongoDB();
-  // if (orders instanceof Error)
-  //   throw new Error("Oops... Could not get the users from the Database");
-  // const index = orders.findIndex(
-  //   (order) => order._id === new ObjectId(orderId)
-  // );
-  // if (index === -1) throw new Error("Could not find user with this ID!");
-
-  // const ordersCopy = [...orders];
-  // const orderToUpdate = { ...ordersCopy[index], ...orderData };
-  // ordersCopy[index] = orderToUpdate;
 };

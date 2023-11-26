@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  handleEditOrder,
   handleGetOrder,
   handleGetOrders,
   handleOrderFromAPI,
@@ -10,5 +11,6 @@ router.get("/", handleGetOrders);
 router.post("/", handleOrderFromAPI);
 router.get("/:id", handleGetOrder);
 router.put("/:id", handleGetOrder);
+router.post("/:id", handleEditOrder);
 
 export default router;
