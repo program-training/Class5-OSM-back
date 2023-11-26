@@ -1,5 +1,5 @@
 import UserInterface from "../interfaces/OrdersInterface";
-import { OrderAPI, getOrders } from "../services/ordersApiService";
+import { OrderAPI, getOrder, getOrders } from "../services/ordersApiService";
 import { handleError } from "../../utils/handleErrors";
 import userValidation from "../models/joi/userValidation";
 import { Request, Response } from "express";
@@ -24,5 +24,15 @@ export const handleOrderFromAPI = async (req: Request, res: Response) => {
     return res.status(201).send(orderFromDB);
   } catch (error) {
     if (error instanceof Error) handleError(res, error);
+  }
+};
+
+export const handleGetOrder = async (req: Request, res: Response) => {
+  try {
+    const { id: orderId } = req.params;
+    const order = await getOrder(orderId);
+    return res.send(order);
+  } catch (error) {
+    handleError(res, error);
   }
 };

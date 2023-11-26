@@ -8,6 +8,7 @@ import userValidation from "../models/joi/userValidation";
 import {
   getAllOrdersFromJSON,
   getAllOrdersFromMongoDB,
+  getOrderById,
   insertOrderFromAPI,
 } from "../../dataAccess/mongoose";
 import OrderInterface from "../interfaces/OrdersInterface";
@@ -44,6 +45,15 @@ export const OrderAPI = async (order: OrderInterface): OrderResult => {
     return order;
   } catch (error) {
     console.log(chalk.redBright(error));
+    return Promise.reject(error);
+  }
+};
+
+export const getOrder = async (orderId: string) => {
+  try {
+    const getOrderFromMDB = await getOrderById(orderId);
+    return getOrderFromMDB;
+  } catch (error) {
     return Promise.reject(error);
   }
 };
