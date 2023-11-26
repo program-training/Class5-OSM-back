@@ -5,7 +5,8 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "nodemon .",
-    "ts": "tsc -w"
+    "ts": "tsc -w",
+    "build": "tsc"
   },
   "author": "David Yakin",
   "license": "ISC",
