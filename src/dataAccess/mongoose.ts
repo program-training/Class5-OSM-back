@@ -62,7 +62,7 @@ export const getUserById = async (id: string) => {
   try {
     const user = await User.findById(id);
     if (!user) {
-      console.log("Product not found");
+      console.log("User not found");
       return; // or throw an error or return an appropriate response
     }
     console.log(4);
@@ -79,6 +79,18 @@ export const insertOrderFromAPI = async (order: OrderInterface) => {
     const newOrder = new Order(order);
     const orderFromDB = await newOrder.save();
     return orderFromDB;
+  } catch (error) {
+    if (error instanceof Error) return Promise.reject(error);
+  }
+};
+
+export const getOrderById = async (id: string) => {
+  try {
+    const order = await Order.findById(id);
+    if (!order) {
+      throw new Error("Can't find your order.");
+    }
+    return order;
   } catch (error) {
     if (error instanceof Error) return Promise.reject(error);
   }
