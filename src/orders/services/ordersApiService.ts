@@ -4,7 +4,7 @@ import { comparePassword, generateUserPassword } from "../helpers/bcrypt";
 
 import chalk from "chalk";
 import userValidation from "../models/joi/userValidation";
-
+import { ObjectId } from "bson";
 import {
   getAllOrdersFromJSON,
   getAllOrdersFromMongoDB,
@@ -12,6 +12,7 @@ import {
   insertOrderFromAPI,
 } from "../../dataAccess/mongoose";
 import OrderInterface from "../interfaces/OrdersInterface";
+import { Order } from "../models/mongoose/OrderSchema";
 
 type OrderResult = Promise<OrderInterface | null>;
 
@@ -56,4 +57,27 @@ export const getOrder = async (orderId: string) => {
   } catch (error) {
     return Promise.reject(error);
   }
+};
+
+export const editOrder = async (
+  orderId: string,
+  orderData: Record<string, unknown>
+) => {
+  try {
+    Order.findByIdAndUpdate(orderId, orderData);
+  } catch (error) {
+    if (error instanceof Error) return Promise.reject(error);
+  }
+
+  // const orders = await getAllOrdersFromMongoDB();
+  // if (orders instanceof Error)
+  //   throw new Error("Oops... Could not get the users from the Database");
+  // const index = orders.findIndex(
+  //   (order) => order._id === new ObjectId(orderId)
+  // );
+  // if (index === -1) throw new Error("Could not find user with this ID!");
+
+  // const ordersCopy = [...orders];
+  // const orderToUpdate = { ...ordersCopy[index], ...orderData };
+  // ordersCopy[index] = orderToUpdate;
 };
