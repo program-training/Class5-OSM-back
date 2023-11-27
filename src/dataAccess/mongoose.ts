@@ -95,3 +95,15 @@ export const getOrderById = async (id: string) => {
     if (error instanceof Error) return Promise.reject(error);
   }
 };
+export const getOrdersById = async (id: string) => {
+  try {
+    const orders = await Order.find({ "shippingDetails.userId": id });
+
+    if (!orders) {
+      throw new Error("Can't find your orders.");
+    }
+    return orders;
+  } catch (error) {
+    if (error instanceof Error) return Promise.reject(error);
+  }
+};

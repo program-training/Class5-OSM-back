@@ -9,6 +9,7 @@ import {
   getAllOrdersFromJSON,
   getAllOrdersFromMongoDB,
   getOrderById,
+  getOrdersById,
   insertOrderFromAPI,
 } from "../../dataAccess/mongoose";
 import OrderInterface from "../interfaces/OrdersInterface";
@@ -54,6 +55,15 @@ export const getOrder = async (orderId: string) => {
   try {
     const getOrderFromMDB = await getOrderById(orderId);
     return getOrderFromMDB;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const getOrdersByUserId = async (userId: string) => {
+  try {
+    const getOrdersFromMDB = await getOrdersById(userId);
+    return getOrdersFromMDB;
   } catch (error) {
     return Promise.reject(error);
   }

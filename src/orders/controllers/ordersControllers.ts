@@ -4,6 +4,7 @@ import {
   editOrder,
   getOrder,
   getOrders,
+  getOrdersByUserId,
 } from "../services/ordersApiService";
 import { handleError } from "../../utils/handleErrors";
 import userValidation from "../models/joi/userValidation";
@@ -41,6 +42,15 @@ export const handleGetOrder = async (req: Request, res: Response) => {
     handleError(res, error);
   }
 };
+export const handleGetOrderByUserId = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const orders = await getOrdersByUserId(userId);
+    return res.send(orders);
+  } catch (error) {
+    handleError(res, error);
+  }
+};
 
 export const handleEditOrder = async (req: Request, res: Response) => {
   try {
@@ -51,3 +61,7 @@ export const handleEditOrder = async (req: Request, res: Response) => {
     handleError(res, error);
   }
 };
+
+{
+  phone: "dsa";
+}

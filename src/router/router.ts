@@ -5,6 +5,9 @@ import ordersRoutes from "../orders/routes/ordersRoutes";
 
 router.use("/api/users", usersRoutes);
 router.use("/api/orders", ordersRoutes);
+router.get("/api/connected", (req: Request, res: Response) =>
+  res.status(200).send("connected to OMS")
+);
 
 router.use("*", (req: Request, res: Response) =>
   res.status(404).send("Page not found!")
