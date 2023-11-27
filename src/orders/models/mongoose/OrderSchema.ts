@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const CartItemSchema = new Schema({
-  id: Number,
+  productId: Number,
   name: String,
   description: String,
   price: Number,
