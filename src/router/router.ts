@@ -3,7 +3,7 @@ const router = express.Router();
 import usersRoutes from "../users/routes/usersRoutes";
 import ordersRoutes from "../orders/routes/ordersRoutes";
 
-// router.use("/api/users", usersRoutes);
+router.use("/api/users", usersRoutes);
 router.use("/api/orders", ordersRoutes);
 
 router.use("*", (req: Request, res: Response) =>
