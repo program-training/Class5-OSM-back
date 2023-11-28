@@ -1,12 +1,13 @@
 {
-  "name": "express-server",
+  "name": "ad-banner-server",
   "version": "1.0.0",
-  "description": "express server exe",
-  "main": "dist/server.js",
+  "description": "",
+  "main": "./dist/server.js",
   "scripts": {
-    "dev": "nodemon .",
-    "ts": "tsc -w",
-    "build": "tsc"
+    "dev": "nodemon --watch dist --exec node dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "author": "David Yakin",
   "license": "ISC",
