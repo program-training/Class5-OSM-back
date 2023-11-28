@@ -23,6 +23,8 @@ import {
 import {
   connectionToPostgres,
   getAllUsersFromJSON,
+  getAllUsersFromPG,
+  insertUsersFromJSONIntoPG,
   insertUsersIntoPG,
 } from "./dataAccess/postgreSQL";
 
@@ -43,9 +45,8 @@ app.listen(PORT, () => {
   connectionToPostgres()
     .then((message) => console.log(message))
     .catch((error) => console.log(error.message));
-  getAllUsersFromJSON().then((d) => console.log(d));
-  insertUsersIntoPG().then((d) => console.log(d));
-  insertOrdersIntoMongoose().then((d) => console.log(d));
+  insertUsersFromJSONIntoPG().then((d) => console.log(d));
+  getAllUsersFromPG().then((d) => console.log(d));
 });
 
 // insertOrdersIntoMongoose(orderData).then((d) => console.log(d));

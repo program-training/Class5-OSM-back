@@ -11,14 +11,23 @@ import {
 } from "../../dataAccess/mongoose";
 import { generateAuthToken } from "../helpers/token";
 import UserLoginInterface from "../interfaces/UserLoginInterface";
-import { getAllUsersFromJSON } from "../../dataAccess/postgreSQL";
+import {
+  getAllUsersFromJSON,
+  getAllUsersFromPG,
+  insertUsersIntoPG,
+} from "../../dataAccess/postgreSQL";
 
 type UserResult = Promise<UserInterface | null>;
 
 export const getUsers = async () => {
   try {
-    const users = await getAllUsersFromJSON();
-    return users;
+    const check = await getAllUsersFromPG();
+    if (check) {
+      return check;
+    } else {
+      const users = await getAllUsersFromJSON();
+      return users;
+    }
   } catch (error) {
     console.log(chalk.redBright(error));
     return Promise.reject(error);
@@ -56,6 +65,7 @@ export const register = async (user: UserInterface): UserResult => {
     //   "users",
     //   users as unknown as Record<string, unknown>[]
     // );
+    insertUsersIntoPG([user.email, user.password, user.isAdmin]);
     return user;
   } catch (error) {
     console.log(chalk.redBright(error));
