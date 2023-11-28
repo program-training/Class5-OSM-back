@@ -122,7 +122,7 @@ export const deleteUser = async (userId: string) => {
 
 export const login = async (userFromClient: UserLoginInterface) => {
   try {
-    const users = await getAllUsersFromJSON();
+    const users = await getAllUsersFromPG();
     if (!users)
       throw new Error("Oops... Could not get the users from the Database");
 
