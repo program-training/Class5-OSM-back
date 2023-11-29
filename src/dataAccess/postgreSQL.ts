@@ -30,7 +30,7 @@ export const getAllUsersFromPG = async () => {
     console.log(result.rows[0].count);
 
     if (result.rows[0].count > 0) {
-      return true;
+      return result.rows;
     } else {
       return false;
     }
