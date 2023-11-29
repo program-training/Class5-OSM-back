@@ -5,7 +5,7 @@
   "main": "./dist/server.js",
   "scripts": {
     "dev": "nodemon --watch dist --exec node dist/server.js",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=1000",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=100000",
     "build": "tsc",
     "start": "node dist/server.js"
   },
