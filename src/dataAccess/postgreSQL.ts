@@ -9,7 +9,6 @@ export const client = new Pool({
 export const connectionToPostgres = async () => {
   try {
     await client.connect();
-    await client.connect();
     return "Connected to PostgreSQL";
   } catch (error) {
     return Promise.reject(error);
@@ -55,7 +54,6 @@ export const insertUsersIntoPG: insertUsersIntoPGFunc = async (val) => {
 
 export const insertUsersFromJSONIntoPG = async () => {
   try {
-    const check = await getAllUsersFromPG();
     const users = await getAllUsersFromJSON();
     users.forEach(async (user) => {
       await insertUsersIntoPG([user.email, user.password, user.isAdmin]);
