@@ -57,11 +57,8 @@ export const getUserById = async (id: string) => {
   try {
     const user = await User.findById(id);
     if (!user) {
-      console.log("User not found");
-      return; // or throw an error or return an appropriate response
+      return; 
     }
-    console.log(4);
-    console.log(user, "65546845647854");
     return user;
   } catch (error) {
     console.log(error);
