@@ -134,7 +134,7 @@ export const login = async (userFromClient: UserLoginInterface) => {
     if (!comparePassword(userFromClient.password, userInDB.password))
       throw new Error("The email or password is incorrect!");
 
-    const token = generateAuthToken();
+    const token = generateAuthToken(userInDB);
     const resInfoObj = { token: token, user: userInDB };
 
     return { message: "Login successful", resInfoObj };
