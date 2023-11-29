@@ -24,12 +24,14 @@ export const getAllUsersFromJSON = async () => {
 };
 export const getAllUsersFromPG = async () => {
   try {
-    const query = "SELECT COUNT(*) FROM users";
-    const result = await client.query(query);
-    console.log(result.rows[0].count);
+    const queryCount = "SELECT COUNT(*) FROM users";
+    const queryUsers = "SELECT * FROM users";
+    const resultCount = await client.query(queryCount);
+    const resultUsers = await client.query(queryUsers);
+    console.log(resultCount.rows[0].count);
 
-    if (result.rows[0].count > 0) {
-      return result.rows;
+    if (resultCount.rows[0].count > 0) {
+      return resultUsers.rows;
     } else {
       return false;
     }
@@ -56,6 +58,8 @@ export const insertUsersIntoPG: insertUsersIntoPGFunc = async (val) => {
 export const insertUsersFromJSONIntoPG = async () => {
   try {
     const check = await getAllUsersFromPG();
+    console.log(check);
+
     if (check) {
       console.log("Already have users");
     } else {
