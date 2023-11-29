@@ -25,11 +25,12 @@ export const getAllUsersFromJSON = async () => {
 };
 export const getAllUsersFromPG = async () => {
   try {
-    const query = "SELECT * FROM users";
+    const query = "SELECT COUNT(*) FROM users";
     const result = await client.query(query);
+    console.log(result.rows[0].count);
 
-    if (result.rows) {
-      return result.rows;
+    if (result.rows[0].count > 0) {
+      return true;
     } else {
       return false;
     }
