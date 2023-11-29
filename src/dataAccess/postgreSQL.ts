@@ -48,7 +48,7 @@ export const insertUsersIntoPG: insertUsersIntoPGFunc = async (val) => {
     )}) VALUES ($1, $2, $3)`;
     await client.query(query, values);
   } catch (error) {
-    console.log("");
+    console.log("failed");
   }
 };
 
