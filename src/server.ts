@@ -41,21 +41,9 @@ app.listen(PORT, () => {
     .then((message) => console.log(message))
     .catch((error) => console.log(error.message));
   insertOrdersIntoMongoose();
-  // const orderData = getAllOrdersFromJSON().then((d) => console.log(d));
 
   connectionToPostgres()
     .then((message) => console.log(message))
     .catch((error) => console.log(error.message));
-  insertUsersFromJSONIntoPG().then((d) => console.log(d));
-  getAllUsersFromPG().then((d) => console.log(d));
+  insertUsersFromJSONIntoPG();
 });
-
-// insertOrdersIntoMongoose(orderData).then((d) => console.log(d));
-
-// await getUserById("64fefdf422dbe033fdbec2dc");
-// const users1 = await getAllUsersFromMongoDB();
-// console.log(users1);
-
-// generateInitialUsers()
-//   .then(() => console.log(chalk.magentaBright("Initial Users Created!")))
-//   .catch((error) => console.log(error));
