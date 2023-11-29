@@ -40,6 +40,7 @@ app.listen(PORT, () => {
   connectToMongoose()
     .then((message) => console.log(message))
     .catch((error) => console.log(error.message));
+  insertOrdersIntoMongoose();
   // const orderData = getAllOrdersFromJSON().then((d) => console.log(d));
 
   connectionToPostgres()

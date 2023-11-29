@@ -29,19 +29,14 @@ export const getAllOrdersFromJSON = async () => {
 export const insertOrdersIntoMongoose = async () => {
   try {
     const orders = await getAllOrdersFromJSON();
-    const newOrders = [];
-    const newOrder = new Order();
-    for (const data of orders) {
-      const existingOrder = await Order.findOne({ _id: data._id.$oid });
+    const existingOrdersCount = await Order.countDocuments();
 
-      if (!existingOrder) {
-        newOrders.push(data);
-        console.log("Order inserted:");
-      } else {
-        console.log("Order already exists:");
-      }
+    if (existingOrdersCount === 0) {
+      await Order.insertMany(orders);
+      console.log("Orders inserted successfully!");
+    } else {
+      console.log("Mongoose database already contains orders.");
     }
-    Order.insertMany(newOrders);
   } catch (error) {
     if (error instanceof Error) return Promise.reject(error);
   }
