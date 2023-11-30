@@ -8,7 +8,6 @@ import {
   handleLogin,
 } from "../controllers/usersControllers";
 const router = express.Router();
-
 router.get("/:id", handleGetUser);
 router.get("/", handleGetUsers);
 router.put("/:id", handleEditUser);

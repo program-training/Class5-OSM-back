@@ -1,4 +1,3 @@
-import UserInterface from "../interfaces/OrdersInterface";
 import {
   OrderAPI,
   editOrder,
@@ -7,7 +6,6 @@ import {
   getOrdersByUserId,
 } from "../services/ordersApiService";
 import { handleError } from "../../utils/handleErrors";
-import userValidation from "../models/joi/userValidation";
 import { Request, Response } from "express";
 import OrderInterface from "../interfaces/OrdersInterface";
 
@@ -61,7 +59,3 @@ export const handleEditOrder = async (req: Request, res: Response) => {
     handleError(res, error);
   }
 };
-
-{
-  phone: "dsa";
-}

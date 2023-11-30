@@ -1,10 +1,8 @@
 import mongoose, { ObjectId } from "mongoose";
 import { User } from "../users/models/mongoose/UserSchema";
-import UserInterface from "../users/interfaces/UserInterface";
 import { readJsonFileOrders } from "../initialData/initialDataService";
 import OrderInterface from "../orders/interfaces/OrdersInterface";
 import { Order } from "../orders/models/mongoose/OrderSchema";
-var ObjectId1 = require("mongoose").Types.ObjectId;
 import "dotenv/config";
 export const connectToMongoose = async () => {
   try {
@@ -57,7 +55,7 @@ export const getUserById = async (id: string) => {
   try {
     const user = await User.findById(id);
     if (!user) {
-      return; 
+      return;
     }
     return user;
   } catch (error) {

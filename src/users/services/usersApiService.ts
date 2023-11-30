@@ -3,12 +3,7 @@ import { v1 as uuid1 } from "uuid";
 import { comparePassword, generateUserPassword } from "../helpers/bcrypt";
 
 import chalk from "chalk";
-import userValidation from "../models/joi/userRegistrationValidation";
-import {
-  // getAllUsersFromMongoDB,
-  getUserById,
-  // insertUsers,
-} from "../../dataAccess/mongoose";
+import { getUserById } from "../../dataAccess/mongoose";
 import { generateAuthToken } from "../helpers/token";
 import UserLoginInterface from "../interfaces/UserLoginInterface";
 import {
@@ -58,13 +53,7 @@ export const register = async (user: UserInterface): UserResult => {
     if (userRegistered) throw new Error("This user is allready registered!");
 
     user.password = generateUserPassword(user.password);
-    // await insertUsers(user);
-    // users.push({ ...user });
 
-    // await modifyCollection(
-    //   "users",
-    //   users as unknown as Record<string, unknown>[]
-    // );
     insertUsersIntoPG([user.email, user.password, user.isAdmin]);
     return user;
   } catch (error) {
@@ -89,9 +78,6 @@ export const editUser = async (
     const userToUpdate = { ...usersCopy[index], ...userForUpdate };
     usersCopy[index] = userToUpdate;
 
-    // const data = await modifyCollection("users", usersCopy);
-    // if (!data)
-    //   throw new Error("Oops... something went wrong Could not Edit this user");
     return userToUpdate;
   } catch (error) {
     console.log(chalk.redBright(error));
@@ -109,10 +95,6 @@ export const deleteUser = async (userId: string) => {
     if (!user) throw new Error("Could not find user with this ID!");
     const filteredUser = users.filter((user) => user._id !== userId);
 
-    // const data = await modifyCollection("users", filteredUser);
-    // if (!data)
-    //   throw new Error("Oops... something went wrong Could not Edit this user");
-
     return user;
   } catch (error) {
     console.log(chalk.redBright(error));
@@ -129,7 +111,6 @@ export const login = async (userFromClient: UserLoginInterface) => {
     const userInDB = users.find((user) => userFromClient.email === user.email);
 
     if (!userInDB) throw new Error("The email or password is incorrect!");
-    // const userCopy = { ...userInDB };
 
     if (!comparePassword(userFromClient.password, userInDB.password))
       throw new Error("The email or password is incorrect!");
