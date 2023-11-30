@@ -55,8 +55,8 @@ export const handleGetOrderByUserId = async (req: Request, res: Response) => {
 export const handleEditOrder = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const order = await editOrder(id, req.body);
-    res.send("Updated!!!!!!!!!!!");
+    await editOrder(id, req.body);
+    res.send("Updated!");
   } catch (error) {
     handleError(res, error);
   }

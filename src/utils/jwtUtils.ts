@@ -5,8 +5,8 @@ import UserInterface from "../users/interfaces/UserInterface";
 
 const secretKey = "project-team1"; // Replace with your actual secret key
 
-export const generateToken = (user: UserInterface): string => {
-  return sign(user, secretKey, { expiresIn: "1h" }); // Adjust expiration as needed
+export const generateToken = ({ isAdmin, _id }: UserInterface): string => {
+  return sign({ isAdmin, _id }, secretKey, { expiresIn: "1h" }); // Adjust expiration as needed
 };
 
 export const verifyToken = (token: string): DecodedToken | null => {
