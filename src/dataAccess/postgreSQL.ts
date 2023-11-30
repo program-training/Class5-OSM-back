@@ -1,4 +1,4 @@
-import { Pool, PoolClient } from "pg";
+import { Pool } from "pg";
 import "dotenv/config";
 import { readJsonFileUsers } from "../initialData/initialDataService";
 import UserInterface from "../users/interfaces/UserInterface";
@@ -28,7 +28,6 @@ export const getAllUsersFromPG = async () => {
     const queryUsers = "SELECT * FROM users";
     const resultCount = await client.query(queryCount);
     const resultUsers = await client.query(queryUsers);
-    console.log(resultCount.rows[0].count);
 
     if (resultCount.rows[0].count > 0) {
       return resultUsers.rows;
@@ -44,7 +43,7 @@ export const getAllUsersFromPG = async () => {
 export const insertUsersIntoPG: insertUsersIntoPGFunc = async (val) => {
   try {
     const tableName = "users";
-    const columns = ["email", "password", "isadmin"];
+    const columns = ["email", "password", "isAdmin"];
     const values = val;
     const query = `INSERT INTO ${tableName} (${columns.join(
       ", "
@@ -58,10 +57,8 @@ export const insertUsersIntoPG: insertUsersIntoPGFunc = async (val) => {
 export const insertUsersFromJSONIntoPG = async () => {
   try {
     const check = await getAllUsersFromPG();
-    console.log(check);
-
     if (check) {
-      console.log("Already have users");
+      console.log("Already have users in PG");
     } else {
       const users = await getAllUsersFromJSON();
       users.forEach(async (user) => {

@@ -33,7 +33,7 @@ export const insertOrdersIntoMongoose = async () => {
       await Order.insertMany(orders);
       console.log("Orders inserted successfully!");
     } else {
-      console.log("Mongoose database already contains orders.");
+      console.log("Already have orders in Mongoose");
     }
   } catch (error) {
     if (error instanceof Error) return Promise.reject(error);
