@@ -1,32 +1,19 @@
 import "dotenv/config";
 import express from "express";
 import router from "./router/router";
-const app = express();
 import chalk from "chalk";
 import morgan from "./logger/morgan";
-// import { generateInitialUsers } from "./initialData/initialDataService";
 import cors from "./cors/cors";
-// import cors from "cors";
-// const corsOptions = {
-//   origin: "*",
-//   credentials: true, //access-control-allow-credentials:true
-//   optionSuccessStatus: 200,
-// };
-
-// app.use(cors(corsOptions));
 import {
   connectToMongoose,
-  getAllOrdersFromJSON,
-  getUserById,
   insertOrdersIntoMongoose,
 } from "./dataAccess/mongoose";
 import {
   connectionToPostgres,
-  getAllUsersFromJSON,
-  getAllUsersFromPG,
   insertUsersFromJSONIntoPG,
-  insertUsersIntoPG,
 } from "./dataAccess/postgreSQL";
+
+const app = express();
 
 app.use(morgan);
 app.use(cors);
