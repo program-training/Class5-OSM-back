@@ -3,9 +3,9 @@ const router = express.Router();
 import usersRoutes from "../users/routes/usersRoutes";
 import ordersRoutes from "../orders/routes/ordersRoutes";
 
-router.use("/api/users", usersRoutes);
-router.use("/api/orders", ordersRoutes);
-router.get("/api/connected", (req: Request, res: Response) =>
+router.use("/users", usersRoutes);
+router.use("/orders", ordersRoutes);
+router.get("/connected", (req: Request, res: Response) =>
   res.status(200).send("connected to OMS")
 );
 
