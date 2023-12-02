@@ -43,8 +43,6 @@ export const insertOrdersIntoMongoose = async () => {
 export const getAllOrdersFromMongoDB = async () => {
   try {
     const orders = await Order.find();
-    console.log(orders);
-
     return orders;
   } catch (error) {
     return Promise.reject(error);
