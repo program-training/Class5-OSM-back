@@ -1,4 +1,4 @@
-import mongoose, { ObjectId } from "mongoose";
+import mongoose from "mongoose";
 import { User } from "../users/models/mongoose/UserSchema";
 import { readJsonFileOrders } from "../initialData/initialDataService";
 import OrderInterface from "../orders/interfaces/OrdersInterface";
