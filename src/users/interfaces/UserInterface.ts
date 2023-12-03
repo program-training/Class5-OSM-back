@@ -2,7 +2,7 @@ interface UserInterface {
   _id?: string;
   email: string;
   password: string;
-  isAdmin: boolean;
+  isadmin: boolean;
 }
 
 export default UserInterface;

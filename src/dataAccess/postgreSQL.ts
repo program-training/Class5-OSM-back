@@ -62,7 +62,7 @@ export const insertUsersFromJSONIntoPG = async () => {
     } else {
       const users = await getAllUsersFromJSON();
       users.forEach(async (user) => {
-        await insertUsersIntoPG([user.email, user.password, user.isAdmin]);
+        await insertUsersIntoPG([user.email, user.password, user.isadmin]);
       });
     }
   } catch (error) {

@@ -5,8 +5,8 @@ import UserInterface from "../users/interfaces/UserInterface";
 
 const secretKey = "project-team1";
 
-export const generateToken = ({ email }: UserInterface): string => {
-  return sign({ email }, secretKey, { expiresIn: "1h" });
+export const generateToken = ({ email, isadmin }: UserInterface): string => {
+  return sign({ email, isadmin }, secretKey, { expiresIn: "1h" });
 };
 
 export const verifyToken = (token: string): DecodedToken | null => {

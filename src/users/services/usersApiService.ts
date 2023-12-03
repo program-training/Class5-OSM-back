@@ -54,7 +54,7 @@ export const register = async (user: UserInterface): UserResult => {
 
     user.password = generateUserPassword(user.password);
 
-    insertUsersIntoPG([user.email, user.password, user.isAdmin]);
+    insertUsersIntoPG([user.email, user.password, user.isadmin]);
     return user;
   } catch (error) {
     console.log(chalk.redBright(error));
