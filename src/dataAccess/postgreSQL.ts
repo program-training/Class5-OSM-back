@@ -69,3 +69,16 @@ export const insertUsersFromJSONIntoPG = async () => {
     return Promise.reject(error);
   }
 };
+
+export const createUsersTable = async () => {
+  try {
+    const query = `create table users (
+      email TEXT ,
+      password TEXT ,
+      isAdmin BOOLEAN
+      )`;
+    await client.query(query);
+  } catch (error) {
+    console.log("Maybe u don't have internet or u Users table already exist. ");
+  }
+};

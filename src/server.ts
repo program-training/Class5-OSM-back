@@ -10,6 +10,7 @@ import {
 } from "./dataAccess/mongoose";
 import {
   connectionToPostgres,
+  createUsersTable,
   insertUsersFromJSONIntoPG,
 } from "./dataAccess/postgreSQL";
 
@@ -32,5 +33,10 @@ app.listen(PORT, () => {
   connectionToPostgres()
     .then((message) => console.log(message))
     .catch((error) => console.log(error.message));
+  createUsersTable()
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => console.log(error));
   insertUsersFromJSONIntoPG();
 });

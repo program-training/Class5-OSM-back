@@ -1,10 +1,10 @@
 import jsonfile from "jsonfile";
-const filePathUsers = "src/initialData/users.json";
-const filePathOrders = "src/initialData/orders.json";
+const filePathUsers = "/users.json";
+const filePathOrders = "/orders.json";
 
 export const readJsonFileUsers = async () => {
   try {
-    const data = await jsonfile.readFile(filePathUsers);
+    const data = await jsonfile.readFile(__dirname + filePathUsers);
     return Promise.resolve(data);
   } catch (error) {
     Promise.reject(error);
@@ -12,7 +12,7 @@ export const readJsonFileUsers = async () => {
 };
 export const readJsonFileOrders = async () => {
   try {
-    const data = await jsonfile.readFile(filePathOrders);
+    const data = await jsonfile.readFile(__dirname + filePathOrders);
     return Promise.resolve(data);
   } catch (error) {
     Promise.reject(error);
