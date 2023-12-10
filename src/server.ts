@@ -10,12 +10,28 @@ import {
 } from "./dataAccess/mongoose";
 import {
   connectionToPostgres,
-  createUsersTable,
   insertUsersFromJSONIntoPG,
 } from "./dataAccess/postgreSQL";
-
 const app = express();
+import { startStandaloneServer } from "@apollo/server/standalone";
+import server from "./graphql/apolloServer";
 
+startStandaloneServer(server, {
+  listen: { port: 5000 },
+})
+  .then(({ url }) => {
+    console.log(chalk.blueBright(`server run on: ${url}`));
+    connectToMongoose()
+      .then((message) => {
+        console.log(chalk.magentaBright(message));
+      })
+      .catch((error) =>
+        console.log(
+          chalk.redBright("Connect to mongoDB Error: ", error.message)
+        )
+      );
+  })
+  .catch((error) => console.log(error.message));
 app.use(morgan);
 app.use(cors);
 app.use(express.json());
@@ -33,10 +49,5 @@ app.listen(PORT, () => {
   connectionToPostgres()
     .then((message) => console.log(message))
     .catch((error) => console.log(error.message));
-  createUsersTable()
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => console.log(error));
   insertUsersFromJSONIntoPG();
 });

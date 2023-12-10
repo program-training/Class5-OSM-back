@@ -10,7 +10,7 @@ export const UserSchema = new Schema({
     required: true,
     minLength: 7,
   },
-  isAdmin: {
+  isadmin: {
     type: Boolean,
     required: true,
   },

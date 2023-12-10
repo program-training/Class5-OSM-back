@@ -11,6 +11,7 @@ import {
   getAllUsersFromPG,
   insertUsersIntoPG,
 } from "../../dataAccess/postgreSQL";
+import userRegistrationValidation from "../models/joi/userRegistrationValidation";
 
 type UserResult = Promise<UserInterface | null>;
 
@@ -31,11 +32,7 @@ export const getUsers = async () => {
 
 export const getUser = async (userId: string) => {
   try {
-    console.log(1.1);
-
     const getUserFromMDB = await getUserById(userId);
-    console.log(1.2);
-
     return getUserFromMDB;
   } catch (error) {
     console.log(chalk.redBright(error));
@@ -45,6 +42,8 @@ export const getUser = async (userId: string) => {
 
 export const register = async (user: UserInterface): UserResult => {
   try {
+    const { error } = userRegistrationValidation(user);
+    if (error?.details[0].message) throw new Error(error?.details[0].message);
     const users = await getUsers();
 
     const userRegistered = users.find(
@@ -116,7 +115,7 @@ export const login = async (userFromClient: UserLoginInterface) => {
       throw new Error("The email or password is incorrect!");
 
     const token = generateAuthToken(userInDB);
-    const resInfoObj = { token: token, user: userInDB };
+    const resInfoObj = { token: token, user: userInDB as UserInterface };
 
     return { message: "Login successful", resInfoObj };
   } catch (error) {

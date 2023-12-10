@@ -43,7 +43,7 @@ export const getAllUsersFromPG = async () => {
 export const insertUsersIntoPG: insertUsersIntoPGFunc = async (val) => {
   try {
     const tableName = "users";
-    const columns = ["email", "password", "isAdmin"];
+    const columns = ["email", "password", "isadmin"];
     const values = val;
     const query = `INSERT INTO ${tableName} (${columns.join(
       ", "
@@ -67,18 +67,5 @@ export const insertUsersFromJSONIntoPG = async () => {
     }
   } catch (error) {
     return Promise.reject(error);
-  }
-};
-
-export const createUsersTable = async () => {
-  try {
-    const query = `create table users (
-      email TEXT ,
-      password TEXT ,
-      isAdmin BOOLEAN
-      )`;
-    await client.query(query);
-  } catch (error) {
-    console.log("Maybe u don't have internet or u Users table already exist. ");
   }
 };

@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
-const CartItemSchema = new Schema({
+const ItemInOrder = new Schema({
   productId: Number,
   name: String,
   description: String,
@@ -9,7 +9,7 @@ const CartItemSchema = new Schema({
 });
 
 export const OrderSchema = new Schema({
-  cartItems: [CartItemSchema],
+  cartItems: [ItemInOrder],
   orderTime: Date,
   status: String,
   price: Number,
@@ -21,4 +21,4 @@ export const OrderSchema = new Schema({
   },
 });
 
-export const Order = mongoose.model("order", OrderSchema);
+export const Order = model("order", OrderSchema);

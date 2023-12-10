@@ -7,7 +7,7 @@ import {
   insertOrderFromAPI,
 } from "../../dataAccess/mongoose";
 import OrderInterface from "../interfaces/OrdersInterface";
-import { Order } from "../models/mongoose/OrderSchema";
+import { Order } from "../models/Orders";
 
 type OrderResult = Promise<OrderInterface | null>;
 
@@ -59,10 +59,8 @@ export const editOrder = async (
     if (!existingOrder) {
       throw new Error("Order not found");
     }
-
     existingOrder.set(orderData);
     const updatedOrder = await existingOrder.save();
-
     return updatedOrder;
   } catch (error) {
     return Promise.reject(error);

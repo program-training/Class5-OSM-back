@@ -2,8 +2,10 @@ import mongoose from "mongoose";
 import { User } from "../users/models/mongoose/UserSchema";
 import { readJsonFileOrders } from "../initialData/initialDataService";
 import OrderInterface from "../orders/interfaces/OrdersInterface";
-import { Order } from "../orders/models/mongoose/OrderSchema";
 import "dotenv/config";
+import { Order } from "../orders/models/Orders";
+
+const UserEvents = MongooseTrigger;
 export const connectToMongoose = async () => {
   try {
     if (process.env.MONGODB_URI)
