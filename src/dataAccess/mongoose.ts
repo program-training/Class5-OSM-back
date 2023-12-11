@@ -5,7 +5,7 @@ import OrderInterface from "../orders/interfaces/OrdersInterface";
 import "dotenv/config";
 import { Order } from "../orders/models/Orders";
 
-const UserEvents = MongooseTrigger;
+// const UserEvents = MongooseTrigger;
 export const connectToMongoose = async () => {
   try {
     if (process.env.MONGODB_URI)
