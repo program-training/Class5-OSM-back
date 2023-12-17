@@ -1,5 +1,5 @@
 {
-  "name": "ad-banner-server",
+  "name": "ad-oms-server",
   "version": "1.0.0",
   "description": "",
   "main": "./dist/server.js",
@@ -9,7 +9,6 @@
     "build": "tsc",
     "start": "node dist/server.js"
   },
-  "author": "David Yakin",
   "license": "ISC",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

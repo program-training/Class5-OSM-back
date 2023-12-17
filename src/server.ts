@@ -43,4 +43,15 @@ startApolloServer()
     connectionToPostgres()
       .then((message) => console.log(chalk.magentaBright(message)))
       .catch((error) => console.log(error.message));
+  })
+  .then(() => {
+    redisConnect()
+      .then((message) => {
+        console.log(chalk.magentaBright(message));
+      })
+      .catch((error) =>
+        console.log(
+          chalk.redBright("Connect to mongoDB Error: ", error.message)
+        )
+      );
   });
