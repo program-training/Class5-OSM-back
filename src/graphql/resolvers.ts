@@ -3,7 +3,7 @@ import ordersQueries, {
 } from "../orders/queries/ordersQueries";
 import { userQueries, usersMutation } from "../users/graphql/userQueries";
 
-const resolvers = {
+export const resolvers = {
   Query: {
     ...ordersQueries,
     ...userQueries,
@@ -14,5 +14,3 @@ const resolvers = {
     ...ordersMutations,
   },
 };
-
-export default resolvers;

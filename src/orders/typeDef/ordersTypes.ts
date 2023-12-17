@@ -1,12 +1,6 @@
 const orderTypes = `
 scalar Date
 
-enum OrderStatus {
-  pending
-  sent
-  cancelled
-  received
-}
 type ItemInOrder {
     productId: Int
     name: String
@@ -23,7 +17,7 @@ type ItemInOrder {
   }
   
   type Order {
-    _id:ID
+    _id:ID!
     cartItems: [ItemInOrder]
     orderTime: Date
     status: String
@@ -40,20 +34,43 @@ type ItemInOrder {
 
   input UpdateOrderStatusInput {
     orderId: String
-    status: OrderStatus
+    status: String!
   }
 
+  input ItemInOrderInput {
+    productId: Int
+    name: String
+    description: String
+    price: Float
+    quantity: Int
+  }
+  
+  input ShippingDetailsInput {
+    address: String
+    userId: ID
+    contactNumber: String
+    orderType: String
+  }
+
+  input NewOrderInput {
+    cartItems: [ItemInOrderInput]
+    orderTime: Date
+    status: String
+    price: Float
+    shippingDetails: ShippingDetailsInput
+  } 
 
 `;
 
 export const ordersTypesQueries = `
 getAllOrdersFromMongoDB:[Order]
-getOrderById(id:ID):Order
+getOrderById(id:ID!):Order
 getOrdersByClientId(userId:ID):[Order]
 `;
 
 export const ordersTypesMutation = `
-updateOrderDetails(order:UpdateOrderDetailsInput):Order
-updateOrderStatus(order:UpdateOrderStatusInput):Order
+updateOrderDetails(order:UpdateOrderDetailsInput!):Order
+updateOrderStatus(order:UpdateOrderStatusInput!):Order!
+createNewOrder(newOrder:NewOrderInput!):Order!
 `;
 export default orderTypes;

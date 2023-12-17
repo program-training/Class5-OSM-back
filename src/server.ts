@@ -1,27 +1,34 @@
 import "dotenv/config";
 import express from "express";
-import router from "./router/router";
 import chalk from "chalk";
-import morgan from "./logger/morgan";
-import cors from "./cors/cors";
-import {
-  connectToMongoose,
-  insertOrdersIntoMongoose,
-} from "./dataAccess/mongoose";
-import {
-  connectionToPostgres,
-  insertUsersFromJSONIntoPG,
-} from "./dataAccess/postgreSQL";
-const app = express();
-import { startStandaloneServer } from "@apollo/server/standalone";
-import server from "./graphql/apolloServer";
+import { connectToMongoose } from "./dataAccess/mongoose";
+import { connectionToPostgres } from "./dataAccess/postgreSQL";
+import cors from "cors";
+import { expressMiddleware } from "@apollo/server/express4";
 import { redisConnect } from "./cache/redisConnect";
+import server from "./graphql/apolloServer";
 
-startStandaloneServer(server, {
-  listen: { port: 5000 },
-})
-  .then(({ url }) => {
-    console.log(chalk.blueBright(`server run on: ${url}`));
+const app = express();
+const startApolloServer = async () => {
+  await server.start();
+
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(
+    "/graphql",
+    cors({
+      origin: [process.env.WHITE_LIST || "http://localhost:5173"],
+      credentials: false,
+    }),
+    expressMiddleware(server)
+  );
+
+  app.listen(5000, () => {
+    console.log(`🚀 Server ready at http://localhost:5000/graphql`);
+  });
+};
+startApolloServer()
+  .then(() => {
     connectToMongoose()
       .then((message) => {
         console.log(chalk.magentaBright(message));
@@ -32,24 +39,8 @@ startStandaloneServer(server, {
         )
       );
   })
-  .catch((error) => console.log(error.message));
-app.use(morgan);
-app.use(cors);
-app.use(express.json());
-app.use(router);
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(chalk.blueBright(`Server listening on port: ${PORT}`));
-
-  connectToMongoose()
-    .then((message) => console.log(message))
-    .catch((error) => console.log(error.message));
-  insertOrdersIntoMongoose();
-
-  connectionToPostgres()
-    .then((message) => console.log(message))
-    .catch((error) => console.log(error.message));
-  insertUsersFromJSONIntoPG();
-  redisConnect();
-});
+  .then(() => {
+    connectionToPostgres()
+      .then((message) => console.log(chalk.magentaBright(message)))
+      .catch((error) => console.log(error.message));
+  });

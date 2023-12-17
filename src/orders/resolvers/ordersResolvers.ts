@@ -1,3 +1,4 @@
+import OrderInterface from "../interfaces/OrdersInterface";
 import { Order } from "../models/Orders";
 interface GetOrderByIdInterface {
   id: string;
@@ -76,11 +77,7 @@ export const updateOrderStatus = async (
   { order }: { order: SetStatusInterface }
 ) => {
   try {
-    console.log(order);
-
     const existingOrder = await Order.findById(order.orderId);
-    console.log(existingOrder);
-
     if (!existingOrder) {
       throw new Error("Order not found");
     }
@@ -89,5 +86,18 @@ export const updateOrderStatus = async (
     return existingOrder;
   } catch (error) {
     return Promise.reject(error);
+  }
+};
+
+export const createNewOrder = async (
+  _: any,
+  { newOrder }: { newOrder: OrderInterface }
+) => {
+  try {
+    const newOrderRes = new Order(newOrder);
+    await newOrderRes.save();
+    return newOrderRes;
+  } catch (error) {
+    if (error instanceof Error) return Promise.reject(error);
   }
 };

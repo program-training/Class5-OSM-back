@@ -1,5 +1,6 @@
+import { BaseContext, GraphQLRequestContext } from "@apollo/server";
 import chalk from "chalk";
-import { GraphQLRequestContext, BaseContext } from "@apollo/server";
+
 
 const apolloLogger = {
   async requestDidStart({ request }: GraphQLRequestContext<BaseContext>) {

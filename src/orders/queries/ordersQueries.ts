@@ -4,6 +4,7 @@ import {
   getOrdersByClientId,
   updateOrderDetails,
   updateOrderStatus,
+  createNewOrder,
 } from "../resolvers/ordersResolvers";
 
 const ordersQueries = {
@@ -15,6 +16,7 @@ const ordersQueries = {
 export const ordersMutations = {
   updateOrderStatus,
   updateOrderDetails,
+  createNewOrder,
 };
 
 export default ordersQueries;
