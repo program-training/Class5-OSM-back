@@ -44,3 +44,4 @@ startApolloServer()
       .then((message) => console.log(chalk.magentaBright(message)))
       .catch((error) => console.log(error.message));
   });
+  
