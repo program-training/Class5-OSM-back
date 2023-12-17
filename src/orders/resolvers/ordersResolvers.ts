@@ -2,11 +2,8 @@ import { RedisJSON } from "@redis/json/dist/commands";
 import { client } from "../../cache/redisConnect";
 import OrderInterface from "../interfaces/OrdersInterface";
 import { Order } from "../models/Orders";
-import {
-  checkExistKey,
-  getWithKey,
-  setWithJsonKey,
-} from "../ordersCache/redisHelpers";
+import { checkExistKey, setWithJsonKey } from "../ordersCache/redisHelpers";
+
 interface GetOrderByIdInterface {
   id: string;
   userId?: string;
@@ -50,6 +47,8 @@ export const getOrderById = async (_: any, { id }: GetOrderByIdInterface) => {
     if (!jsonResult) {
       throw new Error("Can't find your order.");
     }
+    console.log(jsonResult);
+
     const order = jsonResult as unknown as OrderInterface[];
     return order[0];
   } catch (error) {
