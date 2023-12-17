@@ -47,8 +47,6 @@ export const getOrderById = async (_: any, { id }: GetOrderByIdInterface) => {
     if (!jsonResult) {
       throw new Error("Can't find your order.");
     }
-    console.log(jsonResult);
-
     const order = jsonResult as unknown as OrderInterface[];
     return order[0];
   } catch (error) {
