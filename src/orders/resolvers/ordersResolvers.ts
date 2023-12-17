@@ -6,7 +6,7 @@ import {
   checkExistKey,
   getWithKey,
   setWithJsonKey,
-} from "../ordersCache/redisHealpers";
+} from "../ordersCache/redisHelpers";
 interface GetOrderByIdInterface {
   id: string;
   userId?: string;
@@ -40,21 +40,36 @@ export const getAllOrdersFromMongoDB = async () => {
 export const getOrderById = async (_: any, { id }: GetOrderByIdInterface) => {
   try {
     const exist = await checkExistKey("orders");
-    const order = await Order.findById(id);
-    if (!order) {
+    if (!exist) {
+      const orders = await Order.find({});
+      await setWithJsonKey("orders", ".", orders as unknown as RedisJSON);
+    }
+    const jsonResult = await client.json.get("orders", {
+      path: `$..[?(@._id=="${id}")]`,
+    });
+    if (!jsonResult) {
       throw new Error("Can't find your order.");
     }
-    return order;
+    const order = jsonResult as unknown as OrderInterface[];
+    return order[0];
   } catch (error) {
     if (error instanceof Error) return Promise.reject(error);
   }
 };
+
 export const getOrdersByClientId = async (
   _: any,
   { userId }: GetOrderByIdInterface
 ) => {
   try {
-    const orders = await Order.find({ "shippingDetails.userId": userId });
+    const exist = await checkExistKey("orders");
+    if (!exist) {
+      const orders = await Order.find({});
+      await setWithJsonKey("orders", ".", orders as unknown as RedisJSON);
+    }
+    const orders = await client.json.get("orders", {
+      path: `$..[?(@.shippingDetails.userId=="${userId}")]`,
+    });
     if (!orders) {
       throw new Error("Can't find your orders.");
     }
@@ -79,6 +94,7 @@ export const updateOrderDetails = async (
       "shippingDetails.orderType": order.orderType,
     });
     await existingOrder.save();
+    await client.json.del("orders");
     return existingOrder;
   } catch (error) {
     return Promise.reject(error);
@@ -96,6 +112,7 @@ export const updateOrderStatus = async (
     }
     existingOrder.set("status", order.status);
     await existingOrder.save();
+    await client.json.del("orders");
     return existingOrder;
   } catch (error) {
     return Promise.reject(error);
@@ -109,6 +126,7 @@ export const createNewOrder = async (
   try {
     const newOrderRes = new Order(newOrder);
     await newOrderRes.save();
+    await client.json.del("orders");
     return newOrderRes;
   } catch (error) {
     if (error instanceof Error) return Promise.reject(error);
