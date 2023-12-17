@@ -50,8 +50,6 @@ startApolloServer()
         console.log(chalk.magentaBright(message));
       })
       .catch((error) =>
-        console.log(
-          chalk.redBright("Connect to mongoDB Error: ", error.message)
-        )
+        console.log(chalk.redBright("Connect to redis Error: ", error.message))
       );
   });

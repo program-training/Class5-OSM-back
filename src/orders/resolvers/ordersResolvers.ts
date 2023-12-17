@@ -1,5 +1,12 @@
+import { RedisJSON } from "@redis/json/dist/commands";
+import { client } from "../../cache/redisConnect";
 import OrderInterface from "../interfaces/OrdersInterface";
 import { Order } from "../models/Orders";
+import {
+  checkExistKey,
+  getWithKey,
+  setWithJsonKey,
+} from "../ordersCache/redisHealpers";
 interface GetOrderByIdInterface {
   id: string;
   userId?: string;
@@ -18,8 +25,13 @@ interface SetOrderData {
 }
 export const getAllOrdersFromMongoDB = async () => {
   try {
-    const orders = await Order.find({});
-    return orders;
+    const exist = await checkExistKey("orders");
+    if (!exist) {
+      const orders = await Order.find({});
+      await setWithJsonKey("orders", ".", orders as unknown as RedisJSON);
+      return await client.json.get("orders", { path: "." });
+    }
+    return await client.json.get("orders", { path: "." });
   } catch (error) {
     return Promise.reject(error);
   }
@@ -27,6 +39,7 @@ export const getAllOrdersFromMongoDB = async () => {
 
 export const getOrderById = async (_: any, { id }: GetOrderByIdInterface) => {
   try {
+    const exist = await checkExistKey("orders");
     const order = await Order.findById(id);
     if (!order) {
       throw new Error("Can't find your order.");
