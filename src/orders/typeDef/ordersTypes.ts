@@ -23,24 +23,24 @@ type ItemInOrder {
   }
   
   type Order {
-    _id:ID!
+    _id:ID
     cartItems: [ItemInOrder]
     orderTime: Date
-    status: OrderStatus!
+    status: String
     price: Float
     shippingDetails: ShippingDetails
   } 
 
   input UpdateOrderDetailsInput {
-    orderId:String!
+    orderId:String
     address: String
     contactNumber: String
     orderType: String
   }
 
   input UpdateOrderStatusInput {
-    orderId: String!
-    status: OrderStatus!
+    orderId: String
+    status: OrderStatus
   }
 
 
@@ -48,12 +48,12 @@ type ItemInOrder {
 
 export const ordersTypesQueries = `
 getAllOrdersFromMongoDB:[Order]
-getOrderById(id:ID!):Order
+getOrderById(id:ID):Order
 getOrdersByClientId(userId:ID):[Order]
 `;
 
 export const ordersTypesMutation = `
-updateOrderDetails(order:UpdateOrderDetailsInput!):Order
-updateOrderStatus(order:UpdateOrderStatusInput!):Order!
+updateOrderDetails(order:UpdateOrderDetailsInput):Order
+updateOrderStatus(order:UpdateOrderStatusInput):Order
 `;
 export default orderTypes;

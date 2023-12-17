@@ -15,6 +15,7 @@ import {
 const app = express();
 import { startStandaloneServer } from "@apollo/server/standalone";
 import server from "./graphql/apolloServer";
+import { redisConnect } from "./cache/redisConnect";
 
 startStandaloneServer(server, {
   listen: { port: 5000 },
@@ -50,4 +51,5 @@ app.listen(PORT, () => {
     .then((message) => console.log(message))
     .catch((error) => console.log(error.message));
   insertUsersFromJSONIntoPG();
+  redisConnect();
 });

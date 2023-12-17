@@ -22,6 +22,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.4",
     "@types/pg": "^8.10.9",
+    "@types/redis": "^4.0.11",
     "@types/supertest": "^2.0.16",
     "@types/uuid": "^9.0.2",
     "cross-env": "^7.0.3",
@@ -50,6 +51,7 @@
     "mongoose-trigger-fix-remove": "^1.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.11.3",
+    "redis": "^4.6.11",
     "uuid": "^9.0.0"
   },
   "jest": {
