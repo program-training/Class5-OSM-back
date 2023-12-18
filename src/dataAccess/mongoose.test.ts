@@ -1,9 +1,6 @@
-import mongoose from "mongoose";
 import {
   connectToMongoose,
   getAllOrdersFromMongoDB,
-  getUserById,
-  insertOrderFromAPI,
   insertOrdersIntoMongoose,
 } from "./mongoose";
 

@@ -7,8 +7,8 @@ import {
 import UserLoginInterface from "../interfaces/UserLoginInterface";
 
 export const getUsers = async () => await getUsersService();
-export const login = async (_: any, { user }: { user: UserLoginInterface }) =>
+export const login = async (_: never, { user }: { user: UserLoginInterface }) =>
   await loginService(user);
 
-export const createUser = async (_: any, { user }: { user: UserInterface }) =>
+export const createUser = async (_: never, { user }: { user: UserInterface }) =>
   await register(user);

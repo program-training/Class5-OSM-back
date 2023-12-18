@@ -1,5 +1,4 @@
 import UserInterface from "../interfaces/UserInterface";
-import { v1 as uuid1 } from "uuid";
 import { comparePassword, generateUserPassword } from "../helpers/bcrypt";
 
 import chalk from "chalk";
@@ -84,22 +83,22 @@ export const editUser = async (
   }
 };
 
-export const deleteUser = async (userId: string) => {
-  try {
-    const users = await getAllUsersFromJSON();
-    if (users instanceof Error)
-      throw new Error("Oops... Could not get the users from the Database");
+// export const deleteUser = async (userId: string) => {
+//   try {
+//     const users = await getAllUsersFromJSON();
+//     if (users instanceof Error)
+//       throw new Error("Oops... Could not get the users from the Database");
 
-    const user = users.find((user) => user._id === userId);
-    if (!user) throw new Error("Could not find user with this ID!");
-    const filteredUser = users.filter((user) => user._id !== userId);
+//     const user = users.find((user) => user._id === userId);
+//     if (!user) throw new Error("Could not find user with this ID!");
+//     const filteredUser = users.filter((user) => user._id !== userId);
 
-    return user;
-  } catch (error) {
-    console.log(chalk.redBright(error));
-    return Promise.reject(error);
-  }
-};
+//     return user;
+//   } catch (error) {
+//     console.log(chalk.redBright(error));
+//     return Promise.reject(error);
+//   }
+// };
 
 export const login = async (userFromClient: UserLoginInterface) => {
   try {
