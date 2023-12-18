@@ -28,13 +28,14 @@ export const getAllOrdersFromMongoDB = async () => {
       await setWithJsonKey("orders", ".", orders as unknown as RedisJSON);
       return await client.json.get("orders", { path: "." });
     }
+
     return await client.json.get("orders", { path: "." });
   } catch (error) {
     return Promise.reject(error);
   }
 };
 
-export const getOrderById = async (_: any, { id }: GetOrderByIdInterface) => {
+export const getOrderById = async (_: never, { id }: GetOrderByIdInterface) => {
   try {
     const exist = await checkExistKey("orders");
     if (!exist) {
@@ -55,7 +56,7 @@ export const getOrderById = async (_: any, { id }: GetOrderByIdInterface) => {
 };
 
 export const getOrdersByClientId = async (
-  _: any,
+  _: never,
   { userId }: GetOrderByIdInterface
 ) => {
   try {
@@ -77,7 +78,7 @@ export const getOrdersByClientId = async (
 };
 
 export const updateOrderDetails = async (
-  _: any,
+  _: never,
   { order }: { order: SetOrderData }
 ) => {
   try {
@@ -99,7 +100,7 @@ export const updateOrderDetails = async (
 };
 
 export const updateOrderStatus = async (
-  _: any,
+  _: never,
   { order }: { order: SetStatusInterface }
 ) => {
   try {
@@ -117,7 +118,7 @@ export const updateOrderStatus = async (
 };
 
 export const createNewOrder = async (
-  _: any,
+  _: never,
   { newOrder }: { newOrder: OrderInterface }
 ) => {
   try {
