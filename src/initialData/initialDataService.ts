@@ -1,6 +1,12 @@
+import path from "path";
 import jsonfile from "jsonfile";
-const filePathUsers = "src/initialData/users.json";
-const filePathOrders = "src/initialData/orders.json";
+
+
+const __dirname = './commonjsDirName.ts';
+const filePathUsers = path.join(__dirname, "users.json");
+const filePathOrders = path.join(__dirname, "orders.json");
+
+
 
 export const readJsonFileUsers = async () => {
   try {
